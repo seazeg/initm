@@ -1,1 +1,1 @@
-# initm
+# initm 命令行工具
