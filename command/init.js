@@ -106,7 +106,7 @@ module.exports = () => {
         ];
 
         inquirer.prompt(questions).then(answers => {
-            console.log(JSON.stringify(answers, null, '  '));
+            // console.log(JSON.stringify(answers, null, '  '));
 
             console.log(chalk.white('\n Start generating...'))
 
