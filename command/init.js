@@ -94,11 +94,11 @@ module.exports = () => {
                     },
                     new inquirer.Separator(' = JS library = '),
                     {
-                        name: 'jQuery 1.8',
+                        name: 'jQuery1.8',
                         checked: true
                     },
                     {
-                        name: 'egUitls',
+                        name: 'egUtils',
                         checked: true
                     },
                 ]
@@ -115,7 +115,7 @@ module.exports = () => {
                     console.log(error)
                     process.exit()
                 }
-    
+
                 fs.readFile(path.resolve('./') + `/demo/config.json`, 'utf8', function (err, data) {
                     if (err) throw err;
                     let list = JSON.parse(data);
@@ -126,34 +126,62 @@ module.exports = () => {
                     list.testSiteId = answers.devSiteId
                     list.proSiteId = answers.proSiteId
 
-                    if(answers.isEditor){
+                    if (answers.isEditor) {
                         list.dev_template.editorJS = `<script src=''></script>`
                         list.debug_template.editorJS = `<script src=''></script>`
                         list.preview_template.editorJS = `<script src=''></script>`
                     }
 
                     let newContent = JSON.stringify(list, null, 4);
-    
                     fs.writeFile(path.resolve('./') + `/demo/config.json`, newContent, 'utf8', (err) => {
                         if (err) throw err;
                         rename(path.resolve('./demo/'), path.resolve(`./${answers.siteName}`))
+
+                        if (answers.library.length > 0) {
+                            answers.library.forEach(element => {
+                                switch (element) {
+                                    case 'egUtils':
+                                        copy(path.resolve(__dirname, '..') + '/libs/eg-utils.js', path.resolve('./') + `/${answers.siteName}/images/eg-utils.js`)
+                                        break;
+                                    case 'jQuery1.8':
+                                        copy(path.resolve(__dirname, '..') + '/libs/jQuery.1.8.3.min.js', path.resolve('./') + `/${answers.siteName}/images/jQuery.1.8.3.min.js`)
+                                        break;
+                                    case 'obox':
+                                        copy(path.resolve(__dirname, '..') + '/libs/obox.zip', path.resolve('./') + `/${answers.siteName}/images/obox.zip`)
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            });
+                        }
+
+
                         console.log(chalk.green('\n √ Generation completed!'))
                         console.log(`\n npm install \n`)
                         process.exit()
                     });
+
                 });
             })
 
         });
 
 
-
-       
     })
 }
 
 function rename(oldPath, newPath) {
     fs.rename(oldPath, newPath, function (err) {
+        if (err) {
+            throw err;
+        }
+    });
+}
+
+function copy(oldPath, newPath) {
+    console.log(oldPath);
+    console.log(newPath);
+    fs.copyFile(oldPath, newPath, function (err) {
         if (err) {
             throw err;
         }
