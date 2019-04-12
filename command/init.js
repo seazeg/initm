@@ -87,14 +87,13 @@ module.exports = () => {
                 name: 'library',
                 message: 'Select a supported library',
                 choices: [
-                    new inquirer.Separator(' = CSS UI library = '),
-                    {
-                        name: 'obox',
-                        checked: true
-                    },
                     new inquirer.Separator(' = JS library = '),
                     {
                         name: 'jQuery1.8',
+                        checked: true
+                    },
+                    {
+                        name: 'zepto',
                         checked: true
                     },
                     {
@@ -127,9 +126,9 @@ module.exports = () => {
                     list.proSiteId = answers.proSiteId
 
                     if (answers.isEditor) {
-                        list.dev_template.editorJS = `<script src=''></script>`
-                        list.debug_template.editorJS = `<script src=''></script>`
-                        list.preview_template.editorJS = `<script src=''></script>`
+                        list.dev_template.editorJS = `<script src='http://testw.haier.com/viewEdit/images/sd_innerdevelop.js'></script>`
+                        list.debug_template.editorJS = `<script src='http://testw.haier.com/viewEdit/images/sd_innerdevelop.js'></script>`
+                        list.preview_template.editorJS = `<script src='http://testw.haier.com/viewEdit/images/sd_innerdevelop.js'></script>`
                     }
 
                     let newContent = JSON.stringify(list, null, 4);
@@ -146,8 +145,8 @@ module.exports = () => {
                                     case 'jQuery1.8':
                                         copy(path.resolve(__dirname, '..') + '/libs/jQuery.1.8.3.min.js', path.resolve('./') + `/${answers.siteName}/images/jQuery.1.8.3.min.js`)
                                         break;
-                                    case 'obox':
-                                        copy(path.resolve(__dirname, '..') + '/libs/obox.zip', path.resolve('./') + `/${answers.siteName}/images/obox.zip`)
+                                    case 'zepto':
+                                        copy(path.resolve(__dirname, '..') + '/libs/jQuery.1.8.3.min.js', path.resolve('./') + `/${answers.siteName}/images/zepto.min.js`)
                                         break;
                                     default:
                                         break;
