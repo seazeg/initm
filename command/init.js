@@ -49,34 +49,6 @@ module.exports = () => {
                 }
             },
             {
-                type: 'input',
-                name: 'proSearchId',
-                message: "Produce SearchID",
-                validate: function (value) {
-                    var pass = value.match(
-                        /^[0-9]*$/i
-                    );
-                    if (pass) {
-                        return true;
-                    }
-                    return 'Please enter a valid SearchID';
-                }
-            },
-            {
-                type: 'input',
-                name: 'devSearchId',
-                message: "Development SearchID",
-                validate: function (value) {
-                    var pass = value.match(
-                        /^[0-9]*$/i
-                    );
-                    if (pass) {
-                        return true;
-                    }
-                    return 'Please enter a valid SearchID';
-                }
-            },
-            {
                 type: 'confirm',
                 name: 'isEditor',
                 message: 'Whether to visualize editing?',
@@ -89,7 +61,23 @@ module.exports = () => {
                 choices: [
                     new inquirer.Separator(' = JS library = '),
                     {
-                        name: 'jQuery1.8',
+                        name: 'jquery.cookie',
+                        checked: true
+                    },
+                    {
+                        name: 'jquery.base64',
+                        checked: false
+                    },
+                    {
+                        name: 'jquery.jUploader',
+                        checked: true
+                    },
+                    {
+                        name: 'mobiscroll',
+                        checked: true
+                    },
+                    {
+                        name: 'laydate',
                         checked: true
                     },
                     {
@@ -142,8 +130,20 @@ module.exports = () => {
                                     case 'egUtils':
                                         copy(path.resolve(__dirname, '..') + '/libs/eg-utils.js', path.resolve('./') + `/${answers.siteName}/images/eg-utils.js`)
                                         break;
-                                    case 'jQuery1.8':
-                                        copy(path.resolve(__dirname, '..') + '/libs/jQuery.1.8.3.min.js', path.resolve('./') + `/${answers.siteName}/images/jQuery.1.8.3.min.js`)
+                                    case 'jquery.cookie':
+                                        copy(path.resolve(__dirname, '..') + '/libs/jquery.cookie.js', path.resolve('./') + `/${answers.siteName}/images/jquery.cookie.js`)
+                                        break;
+                                    case 'jquery.base64':
+                                        copy(path.resolve(__dirname, '..') + '/libs/jquery.base64.js', path.resolve('./') + `/${answers.siteName}/images/jquery.base64.js`)
+                                        break;
+                                    case 'jquery.jUploader.min':
+                                        copy(path.resolve(__dirname, '..') + '/libs/jquery.jUploader.min.js', path.resolve('./') + `/${answers.siteName}/images/jquery.jUploader.min.js`)
+                                        break;
+                                    case 'laydate':
+                                        copy(path.resolve(__dirname, '..') + '/libs/laydate', path.resolve('./') + `/${answers.siteName}/images/laydate`)
+                                        break;
+                                    case 'mobiscroll':
+                                        copy(path.resolve(__dirname, '..') + '/libs/mobiscroll', path.resolve('./') + `/${answers.siteName}/images/mobiscroll`)
                                         break;
                                     case 'zepto':
                                         copy(path.resolve(__dirname, '..') + '/libs/jQuery.1.8.3.min.js', path.resolve('./') + `/${answers.siteName}/images/zepto.min.js`)

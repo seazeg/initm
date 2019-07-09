@@ -1,0 +1,12 @@
+<!-- SPM功能js -->
+<script src="../images/ajax.spm.js"></script>
+<!-- SPM功能js -->
+<!-- ie8下rem兼容js -->
+<script src="../images/rem.polyfill.min.js"></script>
+<!-- ie8下rem兼容js -->
+<!-- trs全局cookie -->
+<!-- <script id="_trs_glc_js_" src="//testc.haier.com/trscookie/images/trs_cookie.js" data-mpid="101" defer="defer"></script> -->
+<!-- trs全局cookie -->
+<!-- 可视化编辑静态页预览版版 -->
+<%=editorJS%>
+<!-- 可视化编辑静态页预览版版 -->
