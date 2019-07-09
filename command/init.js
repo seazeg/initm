@@ -7,6 +7,8 @@ const fs = require("fs");
 const path = require("path");
 const inquirer = require('inquirer');
 
+
+
 // console.log((chalk.white(`\n Current Directory -> ` + path.resolve('./'))));
 module.exports = () => {
     co(function* () {
@@ -106,10 +108,6 @@ module.exports = () => {
                 fs.readFile(path.resolve('./') + `/demo/config.json`, 'utf8', function (err, data) {
                     if (err) throw err;
                     let list = JSON.parse(data);
-                    list.pro_template.searchId = answers.proSearchId;
-                    list.dev_template.searchId = answers.devSearchId;
-                    list.debug_template.searchId = answers.devSearchId;
-                    list.preview_template.searchId = answers.devSearchId;
                     list.testSiteId = answers.devSiteId
                     list.proSiteId = answers.proSiteId
 
@@ -126,6 +124,7 @@ module.exports = () => {
 
                         if (answers.library.length > 0) {
                             answers.library.forEach(element => {
+                                console.log(element);
                                 switch (element) {
                                     case 'egUtils':
                                         copy(path.resolve(__dirname, '..') + '/libs/eg-utils.js', path.resolve('./') + `/${answers.siteName}/images/eg-utils.js`)
@@ -136,17 +135,17 @@ module.exports = () => {
                                     case 'jquery.base64':
                                         copy(path.resolve(__dirname, '..') + '/libs/jquery.base64.js', path.resolve('./') + `/${answers.siteName}/images/jquery.base64.js`)
                                         break;
-                                    case 'jquery.jUploader.min':
+                                    case 'jquery.jUploader':
                                         copy(path.resolve(__dirname, '..') + '/libs/jquery.jUploader.min.js', path.resolve('./') + `/${answers.siteName}/images/jquery.jUploader.min.js`)
                                         break;
                                     case 'laydate':
-                                        copy(path.resolve(__dirname, '..') + '/libs/laydate', path.resolve('./') + `/${answers.siteName}/images/laydate`)
+                                        exec(`cp -r ${path.resolve(__dirname, '..')}/libs/laydate/ ${path.resolve('./')}/${answers.siteName}/images/laydate/`)
                                         break;
                                     case 'mobiscroll':
-                                        copy(path.resolve(__dirname, '..') + '/libs/mobiscroll', path.resolve('./') + `/${answers.siteName}/images/mobiscroll`)
+                                        exec(`cp -r ${path.resolve(__dirname, '..')}/libs/mobiscroll/ ${path.resolve('./')}/${answers.siteName}/images/mobiscroll/`)
                                         break;
                                     case 'zepto':
-                                        copy(path.resolve(__dirname, '..') + '/libs/jQuery.1.8.3.min.js', path.resolve('./') + `/${answers.siteName}/images/zepto.min.js`)
+                                        copy(path.resolve(__dirname, '..') + '/libs/zepto.min.js', path.resolve('./') + `/${answers.siteName}/images/zepto.min.js`)
                                         break;
                                     default:
                                         break;
@@ -178,8 +177,6 @@ function rename(oldPath, newPath) {
 }
 
 function copy(oldPath, newPath) {
-    console.log(oldPath);
-    console.log(newPath);
     fs.copyFile(oldPath, newPath, function (err) {
         if (err) {
             throw err;

@@ -1,7 +1,6 @@
 const fs = require("fs");
-const unzip = require("unzip");
+const AdmZip = require("adm-zip");
 const path = require("path");
 
-fs.createReadStream(`${__dirname}/module.zip`).pipe(unzip.Extract({
-    path: path.resolve('./')
-}));
+let zip = new AdmZip(`${__dirname}/module.zip`); 
+zip.extractAllTo(path.resolve('./'));
