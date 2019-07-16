@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="../images/obox.css">
+<script type="text/javascript">
+    // 站点配置
+    var siteConfig = {
+        searchId: '<%=searchId%>',
+        userUrl: '<%=userUrl%>',
+        apiUrl: '<%=apiUrl%>',
+    };
+</script>
+<script src="../images/jQuery.1.8.3.min.js"></script>
+<!-- rem核心js -->
+<script src="../images/remble.js"></script>
+<!-- rem核心js -->
+

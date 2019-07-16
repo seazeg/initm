@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="UTF-8">
+    <title>DEMO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=10;IE=9; IE=8; IE=7; IE=EDGE">
+    <!-- css资源start -->
+    <!--#include virtual="public/haier_head.shtml"-->
+    <!-- css资源end -->
+    <!--#include virtual="public/haier_video.shtml"-->
+    <link rel="stylesheet" href="../images/demo.css">
+</head>
+
+<body>
+    <div class="o_body">
+        <div class="o_main">
+            <!-- 头部start -->
+            <!--#include virtual="public/haier_header.shtml"-->
+            <!-- 头部end -->
+
+
+            <!-- your code -->
+
+            <!-- 尾部start -->
+            <!--#include virtual="public/haier_footer.shtml"-->
+            <!-- 尾部end -->
+        </div>
+    </div>
+    <!-- js资源start -->
+    <!--#include virtual="public/haier_foot.shtml"-->
+    <!-- js资源end -->
+</body>
+
+</html>
