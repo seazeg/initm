@@ -1,0 +1,37 @@
+@import "obox_set";
+/* 表单 */
+.ui_form{padding:10px 30px 20px;text-align: left }
+.ui_form dl{display:block;font-size:0}
+.ui_form dl label{display:inline-block;width:90px;font-size:14px;color:#333;text-align:left;vertical-align:top}
+.ui_form dl .cbox{display:inline-block;width:450px}
+.ui_input{display:inline-block;border:1px solid #ccc;box-sizing:border-box;margin-bottom:10px;white-space:normal;vertical-align:top;padding-left:15px;padding-right:0px;font-size:0px;line-height: normal;}
+.ui_input.lose{background:#eee}
+.ui_input input{border:none;font-size:14px;color:#999;line-height:18px;padding:10px 15px 10px 0;box-sizing:border-box;background:none}
+.ui_input textarea{border:none;display:block;font-size:14px;color:#999;line-height:18px;padding:10px 15px 10px 0;width:100%;box-sizing:border-box;resize:none;background:none}
+.ui_input .icon{width:30px;line-height:38px;display:inline-block;text-align:left;color:#999;font-size:16px}
+.ui_input .btn{margin:3px}
+.ui_input .time{font-size:12px;line-height:18px;padding:0px 15px 0px 10px;color:#999;display:inline-block;margin:10px 0;border-left:1px solid #eee}
+.ui_input .link{color:#32beff;padding:0 5px;line-height: 38px;font-size:12px}
+.ui_input .code{margin:3px;width:100px;height:32px;background:#eee;display:inline-block}
+.ui_input *{vertical-align: top}
+.ui_input input.full,.ui_input textarea.full{color:#333}
+.ui_input.cur{border-color:#32beff;box-shadow:0 0 6px rgba(0,0,0,0.2)}
+.ui_input.err{border-color:#ff7800;box-shadow:0 0 6px rgba(245,170,0,0.2)}
+.ui_form .o_DropdownBody{margin-bottom:10px;width:100%}
+.ui_form .ui_addressbox{width:100%}
+.ui_form .o_Dropdown{width:100%!important}
+.ui_form label.name{display:block;font-size:14px;color:#666;line-height:1.3em;margin-bottom:10px;width:100%}
+.ui_input .toolbar{font-size:12px;padding:10px;text-align:right;color:#ccc;line-height:1.3em}
+.ui_radio{padding-left:30px;height:30px;line-height:30px;display:inline-block;background:url(form_bg.png) no-repeat -5px -30px;cursor: pointer;padding-right:10px;margin-right:10px;font-size:14px;color:#666}
+.ui_radio.cur{background-position:-5px 0}
+.ui_radio.lose{background-position:-5px -60px;cursor: default;}
+.ui_radio input{display:none}
+.ui_checkbox{padding-left:30px;height:30px;line-height:30px;display:inline-block;background:url(form_bg.png) no-repeat -5px -90px;cursor: pointer;padding-right:10px;margin-right:10px;font-size:14px;color:#666}
+.ui_checkbox.cur{background-position:-5px -120px}
+.ui_checkbox.lose{background-position:-5px -150px;cursor: default;}
+.ui_checkbox input{display:none}
+
+.ui_err{position: relative;line-height:16px;font-size:12px;color:#ff7800;padding-left:22px;margin-bottom:10px;display:none}
+.ui_err.show{display:block}
+.ui_err a{color:#32beff;display:inline-block;padding:0 2px}
+.ui_err i{position: absolute;top:0;left:0;height:16px;width:16px;background:url(form_bg.png) no-repeat left -187px;display:inline-block}

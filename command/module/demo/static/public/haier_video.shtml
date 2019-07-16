@@ -1,0 +1,6 @@
+<link href="../images/video-js.css" rel="stylesheet" type="text/css">
+<script src="../images/videojs-ie8.min.js"></script>
+<script src="../images/video.js"></script>
+<script>
+    videojs.options.flash.swf = "../images/video-js.swf";
+</script>
