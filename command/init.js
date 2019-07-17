@@ -90,6 +90,15 @@ module.exports = () => {
                         name: 'egUtils',
                         checked: true
                     },
+                    new inquirer.Separator(' = IE HTC = '),
+                    {
+                        name: 'PIE.htc',
+                        checked: true
+                    },
+                    {
+                        name: 'backgroundsize.min.htc',
+                        checked: true
+                    }
                 ]
             }
         ];
@@ -146,6 +155,12 @@ module.exports = () => {
                                         break;
                                     case 'zepto':
                                         copy(path.resolve(__dirname, '..') + '/libs/zepto.min.js', path.resolve('./') + `/${answers.siteName}/images/zepto.min.js`)
+                                        break;
+                                    case 'PIE.htc':
+                                        copy(path.resolve(__dirname, '..') + '/libs/PIE.htc', path.resolve('./') + `/${answers.siteName}/images/PIE.htc`)
+                                        break;
+                                    case 'backgroundsize.min.htc':
+                                        copy(path.resolve(__dirname, '..') + '/libs/backgroundsize.min.htc', path.resolve('./') + `/${answers.siteName}/images/backgroundsize.min.htc`)
                                         break;
                                     default:
                                         break;
