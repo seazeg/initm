@@ -9,3 +9,6 @@ npm i initm -g
 ```
 initm i
 ```
+
+
+ zip -r module.zip demo package.json README.md .gitignore  -x "*.DS_Store" -x ".svn"
