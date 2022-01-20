@@ -1,7 +1,7 @@
 /*
  * @Author       : Evan.G
  * @Date         : 2019-04-01 13:56:29
- * @LastEditTime : 2022-01-20 15:48:33
+ * @LastEditTime : 2022-01-20 16:05:34
  * @Description  :
  */
 
@@ -34,22 +34,40 @@ const handle = {
         let zip = new AdmZip(`${path.resolve(__dirname, "..")}/libs/vue3.zip`);
         zip.extractAllTo(path.resolve("./"));
 
-        rename(
-            path.resolve("./") + "/src/demo",
-            path.resolve("./") + `/src/${answers.siteName}`
-        );
+        fs.readFile(
+            path.resolve("./") + `/package.json`,
+            "utf8",
+            function (err, data) {
+                if (err) throw err;
+                let newContent = data.replace(/demo/g, answers.siteName);
+                fs.writeFile(
+                    path.resolve("./") + `/package.json`,
+                    newContent,
+                    "utf8",
+                    (err) => {
+                        if (err) throw err;
+                        rename(
+                            path.resolve("./") + "/src/demo",
+                            path.resolve("./") + `/src/${answers.siteName}`
+                        );
 
-        if (answers.gitUrl) {
-            shell.exec("git init");
-            shell.exec(`git remote add origin ${answers.gitUrl}`);
-            shell.exec(
-                `git add .;git commit -m 'init';git push -u origin master`
-            );
-        }
+                        if (answers.gitUrl) {
+                            shell.exec("git init");
+                            shell.exec(
+                                `git remote add origin ${answers.gitUrl}`
+                            );
+                            shell.exec(
+                                `git add .;git commit -m 'init';git push -u origin master`
+                            );
+                        }
 
-        console.log(chalk.green("\n √ Generation completed!"));
-        console.log(
-            `\n npm install --registry https://registry.npm.taobao.org \n`
+                        console.log(chalk.green("\n √ Generation completed!"));
+                        console.log(
+                            `\n npm install --registry https://registry.npm.taobao.org \n`
+                        );
+                    }
+                );
+            }
         );
     },
     gulp: (answers) => {
@@ -90,7 +108,6 @@ const handle = {
                         console.log(
                             `\n npm install --registry https://registry.npm.taobao.org \n`
                         );
-                        process.exit();
                     }
                 );
             }
