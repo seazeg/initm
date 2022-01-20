@@ -11,4 +11,5 @@ initm i
 ```
 
 
- zip -r module.zip demo package.json README.md .gitignore  -x "*.DS_Store" -x ".svn"
+ zip -r vue3.zip * -x "*.DS_Store" -x ".svn" -x "node_modules/**"
+ 
