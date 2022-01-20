@@ -9,7 +9,22 @@ const handle = require("./handle");
 module.exports = () => {
     co(function* () {
         // 处理用户输入
-        console.log(chalk.blue("Please enter the basic information"));
+        console.log(
+            chalk.green(`
+            -----------------------------------
+            -----------------------------------
+
+            ██ ███    ██ ██ ████████ ███    ███ 
+            ██ ████   ██ ██    ██    ████  ████ 
+            ██ ██ ██  ██ ██    ██    ██ ████ ██ 
+            ██ ██  ██ ██ ██    ██    ██  ██  ██ 
+            ██ ██   ████ ██    ██    ██      ██ 
+            
+            ----------------------------------- 
+            -----------------------------------
+                `)
+        );
+
         let projectType = [
             {
                 type: "list",
