@@ -6,17 +6,10 @@
             recalc = function () {
                 var clientWidth = docEl.clientWidth;
                 if (!clientWidth) return;
-                var clientWidth = docEl.clientWidth;
-                if (!clientWidth) return;
                 if (clientWidth <= 750) {
                     docEl.style.cssText =
                         "font-size:" +
                         100 * (clientWidth / 750) +
-                        "px !important";
-                } else if (clientWidth <= 1200 && clientWidth > 750) {
-                    docEl.style.cssText =
-                        "font-size:" +
-                        100 * (clientWidth / 1200) +
                         "px !important";
                 } else {
                     docEl.style.cssText =
@@ -29,10 +22,10 @@
                     }
                 }
             };
-        window.onresize = function () {
+        win.onresize = function () {
             recalc();
         };
-        window.onload = function () {
+        win.onload = function () {
             recalc();
         };
         recalc();
@@ -51,7 +44,7 @@
     var siteConfig = {
         userUrl: "<%=userUrl%>",
         apiUrl: "<%=apiUrl%>",
-        imgUrl: "<%=imgUrl%>"
+        imgUrl: "<%=imgUrl%>",
     };
 
     var isShedderShow =
