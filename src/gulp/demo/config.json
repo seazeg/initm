@@ -1,0 +1,36 @@
+{
+    "serverPort": "3007",
+    "proxyPort": "代理端口",
+    "proxyTarget": "代理地址",
+    "proxySwitch": false,
+    "dev": {
+        "env": "本地开发环境",
+        "editorJS": "",
+        "userUrl": "",
+        "headUrl": "",
+        "apiUrl": "http://127.0.0.1:3006",
+        "cHaierUrl": "",
+        "imgUrl": "http://127.0.0.1:3006"
+    },
+    "test": {
+        "env": "测试环境",
+        "editorJS": "",
+        "userUrl": "//tuser.haier.com",
+        "headUrl": "//test.haier.com",
+        "apiUrl": "//test.haier.com",
+        "cHaierUrl": "//testc.haier.com",
+        "imgUrl": "//test.haier.com"
+    },
+    "pro": {
+        "env": "生产环境",
+        "editorJS": "",
+        "userUrl": "//user.haier.com",
+        "headUrl": "//www.haier.com",
+        "apiUrl": "//www.haier.com",
+        "cHaierUrl": "//c.haier.com",
+        "imgUrl": "//image.haier.com"
+    },
+    "template_directory": "/public/",
+    "testSiteId": "0",
+    "proSiteId": "0"
+}

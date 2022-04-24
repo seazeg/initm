@@ -11,5 +11,5 @@ initm i
 ```
 
 
- zip -r vue3.zip * .gitignore -x "*.DS_Store" -x ".svn" -x "node_modules/**"
+ zip -r gulp.zip * .gitignore -x "*.DS_Store" -x ".svn" -x "node_modules/**"
  

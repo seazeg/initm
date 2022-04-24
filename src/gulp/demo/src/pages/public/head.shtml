@@ -1,0 +1,65 @@
+<script>
+    (function (doc, win) {
+        var docEl = doc.documentElement,
+            resizeEvt =
+                "orientationchange" in window ? "orientationchange" : "resize",
+            recalc = function () {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                if (clientWidth <= 750) {
+                    docEl.style.cssText =
+                        "font-size:" +
+                        100 * (clientWidth / 750) +
+                        "px !important";
+                } else if (clientWidth <= 1200 && clientWidth > 750) {
+                    docEl.style.cssText =
+                        "font-size:" +
+                        100 * (clientWidth / 1200) +
+                        "px !important";
+                } else {
+                    docEl.style.cssText =
+                        "font-size:" +
+                        100 * (clientWidth / 1366) +
+                        "px !important";
+                    if (100 * (clientWidth / 1366) >= 100) {
+                        docEl.style.cssText =
+                            "font-size:" + 100 + "px !important";
+                    }
+                }
+            };
+        window.onresize = function () {
+            recalc();
+        };
+        window.onload = function () {
+            recalc();
+        };
+        recalc();
+    })(document, window);
+</script>
+<link rel="stylesheet" href="./images/hopefont.css" />
+<link rel="stylesheet" href="./images/hopeui.min.css" />
+<link rel="stylesheet" href="./images/common.css" />
+
+<!--[if IE 8]>
+    <link rel="stylesheet" href="./images/common_ie8.css" />
+<![endif]-->
+
+<script type="text/javascript">
+    // 站点配置
+    var siteConfig = {
+        userUrl: "<%=userUrl%>",
+        apiUrl: "<%=apiUrl%>",
+        imgUrl: "<%=imgUrl%>"
+    };
+
+    var isShedderShow =
+        window.location.href.indexOf("shedderShow") > 0 ||
+        window.location.href.indexOf("/preview/") > 0
+            ? true
+            : false;
+    if (isShedderShow) {
+        siteConfig.apiUrl = "";
+    }
+</script>

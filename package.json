@@ -4,6 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
+        "build:vue": "cd src/vue3/;zip -r vue3.zip * .gitignore -x '*.DS_Store' -x '.svn' -x 'node_modules/**';mv vue3.zip ../../libs/",
+        "build:gulp": "cd src/gulp/;zip -r gulp.zip * .gitignore -x '*.DS_Store' -x '.svn' -x 'node_modules/**';mv gulp.zip ../../libs/",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [
