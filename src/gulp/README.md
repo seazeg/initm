@@ -42,21 +42,7 @@
 
 ## 二、开发流程
 
-### 1. 配置 hosts 文件
-
-在 hosts 文件中加入以下内容：
-
-```shell
-123.56.25.124 gitlab.trs.com
-```
-
-### 2. 克隆项目
-
-```shell
-git clone http://gitlab.trs.com:36370/static-develpement/qd_chinaMerchants.git
-```
-
-### 3. 安装依赖
+### 1. 安装依赖
 
 进入项目根目录执行
 
@@ -65,16 +51,21 @@ npm i -g gulp //全局安一下gulp
 npm i //安装当前项目依赖 推荐cnpm i
 ```
 
-### 4. 本地启动
+### 2. 本地启动
 
 ```shell
 cd qd_site
 gulp debug
 ```
 
-### 5. 分支都从 dev 分支切出新分支，命名按照：`姓名_模块名_当前日期`，`zhouyong_homepage_20210928`
+### 3. 分支都从 dev 分支切出新分支，命名按照：`姓名_模块名_当前日期`，`zhouyong_homepage_20210928`
 
 ## 三、开发规范
+
+
+> 前端代码开发规范(重要) http://192.168.1.29:8090/pages/viewpage.action?pageId=1901212 
+> 
+> 响应式页面开发规范(重要) http://192.168.1.29:8090/pages/viewpage.action?pageId=1900845
 
 ### 1. html
 
@@ -124,3 +115,36 @@ gulp debug
 ## 四、 命名规范
 
 -   pages 中静态页面命名，按照 demo 规则即可
+
+## 五、config.json 配置说明
+
+```
+siteId: 站点id
+userUrl: 个人中心域名
+headUrl: 站点域名
+apiUrl: 服务域名
+cHaierUrl: c.haier.com域名（如：分享插件的域名）
+imgUrl: 图片域名
+featureID: 产品特性栏目id
+loginUrl: 登录页地址
+registerUrl: 注册页地址
+usercenterUrl: 个人中心首页地址
+logOutUrl: 退出登录地址
+mpid: 网脉js的mpid
+videoUrl: 视频资源域名
+downloadUrl: 驱动下载等资源域名
+continentID: 海外国家选择维护栏目id
+baiduMapApi: 百度地图api
+baiduMapAK: 百度地图key
+siteSmartSearchId: 全文检索站点栏目id
+productCode: 产品code
+serviceCode: 服务code
+haierstoreCode: 门店code
+appDownloadCode: app下载code
+specificationDownloadCode: 说明书code
+driveDownloadCode: 驱动下载code
+newsCode: 新闻code
+videosCode: 视频code
+guanggaowei: 各广告位id
+driverchnlid: 产品详情页驱动下载驱动资源包栏目id
+```

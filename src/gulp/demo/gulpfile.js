@@ -509,7 +509,13 @@ function watchFile() {
             console.log(
                 chalk.yellow(`[${nowDate}]更新文件 ${path}到dist/images目录`)
             );
-        } else if (type == "jpg" || type == "png" || type == "gif") {
+        } else if (
+            type == "jpg" ||
+            type == "jpeg" ||
+            type == "svg" ||
+            type == "png" ||
+            type == "gif"
+        ) {
             src(path)
                 .pipe(
                     rename({

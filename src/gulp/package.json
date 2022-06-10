@@ -1,6 +1,6 @@
 {
     "name": "trscli",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "description": "构建流程工具",
     "main": "index.js",
     "scripts": {

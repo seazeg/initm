@@ -11,12 +11,17 @@
                         "font-size:" +
                         100 * (clientWidth / 750) +
                         "px !important";
+                } else if (clientWidth <= 1200 && clientWidth > 750) {
+                    docEl.style.cssText =
+                        "font-size:" +
+                        100 * (clientWidth / 1200) +
+                        "px !important";
                 } else {
                     docEl.style.cssText =
                         "font-size:" +
-                        100 * (clientWidth / 1366) +
+                        100 * (clientWidth / 1680) +
                         "px !important";
-                    if (100 * (clientWidth / 1366) >= 100) {
+                    if (100 * (clientWidth / 1680) >= 100) {
                         docEl.style.cssText =
                             "font-size:" + 100 + "px !important";
                     }
@@ -28,7 +33,6 @@
         win.onload = function () {
             recalc();
         };
-        recalc();
     })(document, window);
 </script>
 <link rel="stylesheet" href="./images/hopefont.css" />
@@ -40,11 +44,39 @@
 <![endif]-->
 
 <script type="text/javascript">
-    // 站点配置
+    /*
+        ===站点配置===
+        各字段含义：去看项目中README.md
+    */
     var siteConfig = {
+        siteId: "<%=siteId%>",
         userUrl: "<%=userUrl%>",
+        headUrl: "<%=headUrl%>",
         apiUrl: "<%=apiUrl%>",
+        cHaierUrl: "<%=cHaierUrl%>",
         imgUrl: "<%=imgUrl%>",
+        featureID: "<%=featureID%>",
+        loginUrl: "<%=loginUrl%>",
+        registerUrl: "<%=registerUrl%>",
+        usercenterUrl: "<%=usercenterUrl%>",
+        logOutUrl: "<%=logOutUrl%>",
+        mpid: "<%=mpid%>",
+        videoUrl: "<%=videoUrl%>",
+        downloadUrl: "<%=downloadUrl%>",
+        continentID: "<%=continentID%>",
+        baiduMapApi: "<%=baiduMapApi%>",
+        baiduMapAK: "<%=baiduMapAK%>",
+        siteSmartSearchId: "<%=siteSmartSearchId%>",
+        productCode: "<%=productCode%>",
+        serviceCode: "<%=serviceCode%>",
+        haierstoreCode: "<%=haierstoreCode%>",
+        appDownloadCode: "<%=appDownloadCode%>",
+        specificationDownloadCode: "<%=specificationDownloadCode%>",
+        driveDownloadCode: "<%=driveDownloadCode%>",
+        newsCode: "<%=newsCode%>",
+        videosCode: "<%=videosCode%>",
+        guanggaowei: "<%=JSON.stringify(guanggaowei)%>",
+        driverchnlid: "<%=driverchnlid%>",
     };
 
     var isShedderShow =
