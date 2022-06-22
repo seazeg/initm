@@ -48,7 +48,8 @@
 
 ```shell
 npm i -g gulp //全局安一下gulp
-npm i //安装当前项目依赖 推荐cnpm i
+npm i -g pnpm //全局安pnpm包管理
+pnpm i //安装当前项目依赖
 ```
 
 ### 2. 本地启动
