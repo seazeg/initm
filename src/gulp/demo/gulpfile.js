@@ -544,8 +544,8 @@ exports.debug = series(
                 copyOther,
                 convertLess
             ),
-            ie8Convert,
-            selfBabel,
+            // ie8Convert,
+            // selfBabel,
             watchFile
         ),
         webService,
@@ -566,8 +566,8 @@ exports.build = series(
                 copyOther,
                 convertLess
             ),
-            ie8Convert,
-            selfBabel,
+            // ie8Convert,
+            // selfBabel,
             jsmin,
             cssmin,
             imgmin
@@ -587,8 +587,8 @@ exports.test = series(
                 copyOther,
                 convertLess
             ),
-            ie8Convert,
-            selfBabel
+            // ie8Convert,
+            // selfBabel
         )
     )
 );
