@@ -586,7 +586,7 @@ exports.test = series(
                 copyImg,
                 copyOther,
                 convertLess
-            ),
+            )
             // ie8Convert,
             // selfBabel
         )

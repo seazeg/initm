@@ -1,46 +1,14 @@
 .DS_Store
 .idea
-
 */build
 */dist
-
-*/resource/
-*/*.site
-# */build/
-
-*/*.zip
-*.zip
-*.sh
-*/**/*.psd
-node_modules
-*/node_modules
-
-
-/.idea
-*.class
-
-/target/
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.ear
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-
-#idea files
-.idea/
-*.iml
-overlays/
-jxl.log
-
-*.sh
-
-
-**.orig
-
-.vscode
+node_modules/
+npm-debug.log
+npm-debug.log.*
+thumbs.db
+!.gitkeep
+.vscode/*
+tsconfig.json
+webpack.config.js
+*/*.orig
+*.orig
