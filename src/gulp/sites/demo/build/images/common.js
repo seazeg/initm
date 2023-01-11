@@ -1,1 +1,0 @@
-"use strict";fetch("/api",{method:"get"}).then(function(n){console.log(n)}).then(function(n){document.body.innerHTML=n});
