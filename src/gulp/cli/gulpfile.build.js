@@ -21,7 +21,6 @@ const concat = require("gulp-concat");
 const replace = require("gulp-replace");
 const connect = require("gulp-connect");
 const autoPrefixer = require("gulp-autoprefixer");
-const cache = require("gulp-cache");
 
 const {
     PATH_CONFIG,
@@ -30,6 +29,13 @@ const {
     USE_CONFIG,
     BASE64_CONFIG,
 } = require("./config");
+
+const options = minimist(process.argv.slice(2), {
+    string: "env",
+    default: {
+        env: process.env.NODE_ENV || "dev",
+    },
+});
 
 module.exports = (gulp, userConfig, browserSync) => {
     const { src, dest, series, parallel, watch } = gulp;
@@ -54,13 +60,22 @@ module.exports = (gulp, userConfig, browserSync) => {
                     dirname: "",
                 })
             )
-            .pipe(plumber.stop())
             .pipe(dest(`${PATH_CONFIG.export.dev.styles}`));
     });
 
     /* js 任务*/
     gulp.task(TASK.DEV.SCRIPT.MAIN, () => {
         return src(`${PATH_CONFIG.entry.script}`)
+            .pipe(plumber())
+            .pipe(
+                gulpif(
+                    USE_CONFIG.useBabel,
+                    babel({
+                        presets: ["@babel/env"],
+                        plugins: ["@babel/transform-runtime"],
+                    })
+                )
+            )
             .pipe(
                 plumber({
                     errorHandler: function (e) {
@@ -78,241 +93,69 @@ module.exports = (gulp, userConfig, browserSync) => {
                     },
                 })
             )
-            .pipe(
-                gulpif(
-                    USE_CONFIG.useBabel,
-                    babel({
-                        presets: ["@babel/env"],
-                        plugins: ["@babel/transform-runtime"],
-                    })
-                )
-            )
             .pipe(uglify())
             .pipe(
                 rename({
                     dirname: "",
                 })
             )
-            .pipe(plumber.stop())
             .pipe(dest(`${PATH_CONFIG.export.dev.script}`));
     });
 
     /* html 任务*/
     gulp.task(TASK.DEV.HTML, () => {
+        console.log(
+            chalk.yellow(
+                `[${moment().locale("zh-cn").format("HH:mm:ss")}] 打包环境: ${
+                    options.env
+                }`
+            )
+        );
         return src(`${PATH_CONFIG.entry.html}`)
-            .pipe(plumber())
             .pipe(
-                template(userConfig.dev, {
-                    interpolate: /<%=([\s\S]+?)%>/g,
-                })
-            )
-            .pipe(
-                rename({
-                    dirname: "",
-                })
-            )
-            .pipe(plumber.stop())
-            .pipe(dest(`${PATH_CONFIG.export.dev.html}`));
-    });
-
-    /* images 任务 */
-    gulp.task(TASK.DEV.IMAGE.MAIN, () => {
-        return src(`${PATH_CONFIG.entry.images}`)
-            .pipe(plumber())
-            .pipe(
-                cache(
-                    imagemin({
-                        progressive: true,
-                        svgoPlugins: [{ removeViewBox: false }],
-                        use: [pngquant()],
+                gulpif(
+                    options.env === "dev",
+                    shell(["echo 0 > <%= siteId %>.site"], {
+                        templateData: {
+                            siteId: userConfig.testSiteId,
+                        },
                     })
                 )
             )
             .pipe(
-                rename({
-                    dirname: "",
-                })
+                gulpif(
+                    options.env === "pro",
+                    shell(["echo 0 > <%= siteId %>.site"], {
+                        templateData: {
+                            siteId: userConfig.proSiteId,
+                        },
+                    })
+                )
             )
-            .pipe(plumber.stop())
-            .pipe(dest(`${PATH_CONFIG.export.dev.images}`));
-    });
-
-    /* libs 任务 */
-    gulp.task(TASK.DEV.LIBS, () => {
-        return src(`${PATH_CONFIG.entry.libs}`)
-            .pipe(plumber())
             .pipe(
-                rename({
-                    dirname: "",
-                })
+                gulpif(
+                    options.env === "dev",
+                    template(userConfig.dev, {
+                        interpolate: /<%=([\s\S]+?)%>/g,
+                    })
+                )
             )
-            .pipe(plumber.stop())
-            .pipe(dest(`${PATH_CONFIG.export.dev.libs}`));
-    });
-
-    /* media 任务 */
-    gulp.task(TASK.DEV.MEDIA, () => {
-        return src(`${PATH_CONFIG.entry.media}`)
-            .pipe(plumber())
             .pipe(
-                rename({
-                    dirname: "",
-                })
+                gulpif(
+                    options.env === "pro",
+                    template(userConfig.pro, {
+                        interpolate: /<%=([\s\S]+?)%>/g,
+                    })
+                )
             )
-            .pipe(plumber.stop())
-            .pipe(dest(`${PATH_CONFIG.export.dev.media}`));
-    });
-
-    /* fonts 任务 */
-    gulp.task(TASK.DEV.FONT, () => {
-        return src(`${PATH_CONFIG.entry.fonts}`)
-            .pipe(plumber())
-            .pipe(
-                rename({
-                    dirname: "",
-                })
-            )
-            .pipe(plumber.stop())
-            .pipe(dest(`${PATH_CONFIG.export.dev.fonts}`));
-    });
-
-    /* 本地Server */
-    gulp.task(TASK.DEV.BROWSER_SYNC, () => {
-        browserSync.init({
-            port: SERVER.port,
-            server: {
-                baseDir: SERVER.baseDir,
-                directory: SERVER.directory,
-                middleware: function (req, res, next) {
-                    const fs = require("fs");
-                    const ssi = require("ssi");
-                    let pathname = require("url").parse(req.url).pathname;
-                    let filename = require("path").join(
-                        SERVER.baseDir,
-                        pathname.substr(-1) === "/"
-                            ? pathname + "index.shtml"
-                            : pathname
-                    );
-
-                    let parser = new ssi(
-                        SERVER.baseDir,
-                        SERVER.baseDir,
-                        "/**/*.shtml",
-                        true
-                    );
-
-                    if (
-                        filename.indexOf(".shtml") > -1 &&
-                        fs.existsSync(filename)
-                    ) {
-                        res.end(
-                            parser.parse(
-                                filename,
-                                fs.readFileSync(filename, {
-                                    encoding: "utf8",
-                                })
-                            ).contents
-                        );
-                    } else {
-                        next();
-                    }
-                },
-            },
-        });
-    });
-
-    /* 热更新watch */
-    gulp.task(TASK.DEV.WATCH, () => {
-        let watcher = watch(SERVER.watchDir);
-        watcher.on("change", (path) => {
-            let separator = path.indexOf("\\") > 0 ? "\\" : "/"; //分隔符
-            let pathArray = path.split(separator);
-            let fileName = pathArray[pathArray.length - 1];
-            let type = fileName.split(".")[1];
-            let nowDate = moment().locale("zh-cn").format("HH:mm:ss");
-            if (type == "html" || type == "shtml") {
-                staticFileComp();
-                browserSync.reload();
-                console.log(
-                    chalk.yellow(`[${nowDate}]更新文件 ${path}到dist目录`)
-                );
-            } else if (type == "js") {
-                src(path)
-                    .pipe(
-                        rename({
-                            dirname: "",
-                        })
-                    )
-                    .pipe(dest("dist/images/"));
-
-                selfBabel();
-                browserSync.reload();
-                console.log(
-                    chalk.yellow(
-                        `[${nowDate}]更新文件 ${path}到dist/images目录`
-                    )
-                );
-            } else if (type == "less") {
-                src(path)
-                    .pipe(plumber())
-                    .pipe(less())
-                    .pipe(
-                        prefixer({
-                            //这是自动处理的参数
-                            borwsers: ["last 2 versions"], //针对游览器
-                            remove: true,
-                        })
-                    )
-                    .pipe(
-                        rename({
-                            dirname: "",
-                        })
-                    )
-                    .pipe(dest("dist/images/"));
-                browserSync.reload();
-                console.log(
-                    chalk.yellow(
-                        `[${nowDate}]更新文件 ${path}到dist/images目录`
-                    )
-                );
-            } else if (
-                type == "jpg" ||
-                type == "jpeg" ||
-                type == "svg" ||
-                type == "png" ||
-                type == "gif"
-            ) {
-                src(path)
-                    .pipe(
-                        rename({
-                            dirname: "",
-                        })
-                    )
-                    .pipe(dest("dist/images/"));
-                browserSync.reload();
-                console.log(
-                    chalk.yellow(
-                        `[${nowDate}]更新文件 ${path}到dist/images目录`
-                    )
-                );
-            }
-        });
+            .pipe(dest(`${PATH_CONFIG.export.dev.html}`));
     });
 
     gulp.task(
         TASK.DEV.MAIN,
         series(
             TASK.DEV.CLEAN,
-            parallel(
-                TASK.DEV.HTML,
-                TASK.DEV.STYLE.MAIN,
-                TASK.DEV.SCRIPT.MAIN,
-                TASK.DEV.IMAGE.MAIN,
-                TASK.DEV.LIBS,
-                TASK.DEV.MEDIA,
-                TASK.DEV.FONT
-            ),
-            TASK.DEV.BROWSER_SYNC,
+            parallel(TASK.DEV.STYLE.MAIN, TASK.DEV.SCRIPT.MAIN, TASK.DEV.HTML),
             async () => {
                 console.log("完成");
             }

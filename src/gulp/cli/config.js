@@ -1,17 +1,25 @@
 /*
  * @Author       : Evan.G
  * @Date         : 2023-01-10 16:50:23
- * @LastEditTime : 2023-01-10 18:13:12
+ * @LastEditTime : 2023-01-11 11:30:45
  * @Description  :
  * @FilePath     : /seazeg.github.io/Users/geng/Project/Person/initm/src/gulp/cli/config.js
  */
 
 const PATH_CONFIG = {
     entry: {
-        html: "src/pages/**/.{html,shtml,htm}",
-        styles: "src/pages/**/*.{less,css}",
-        script: "src/pages/**/*.js",
-        images: "src/pages/**/res/*.{png,jpg,gif,svg,bmp,jpeg}",
+        html: "src/pages/**/*.{html,shtml,htm}",
+        styles: [
+            "src/pages/**/*.{less,css}",
+            "!src/**/*.min.{less,css}",
+            "!src/**/*.ignore.{less,css}",
+        ],
+        script: [
+            "src/pages/**/*.js",
+            "!src/**/*.min.js",
+            "!src/**/*.ignore.js",
+        ],
+        images: "src/pages/**/res/*.{png,jpg,gif,svg,bmp,jpeg,webp}",
         media: "src/pages/**/res/*.{mp4,m3u8,mov}",
         fonts: "src/fonts/**/*.{ttf,woff,woff2,eot}",
         libs: "src/libs/**/*.*",
@@ -40,9 +48,10 @@ const PATH_CONFIG = {
     },
 };
 
-const USER_CONFIG = {
+const USE_CONFIG = {
     useEslint: false,
     useWebpack: false,
+    useBabel: true,
 };
 
 const TASK = {
@@ -51,29 +60,21 @@ const TASK = {
         CLEAN: "dev-clean",
         HTML: "dev-html",
         STYLE: {
-            CSS: "dev-css",
-            LESS: "dev-less", // less编译
+            MAIN: "dev-css",
+            CONCAT: "dev-css-concat", // css合并
         },
         SCRIPT: {
             MAIN: "dev-js",
-            UGLIFY: "dev-uglify", // JS压缩
-            CONCAT: "dev-concat", // JS合并
+            CONCAT: "dev-js-concat", // JS合并
+            BABAL: "dev-js-babal",
         },
         IMAGE: {
             MAIN: "dev-image",
-            IMAGE_MIN: "dev-image-min",
             base64: "dev-base64",
         },
-        FONT: {
-            MAIN: "dev-font",
-        },
-        MEDIA: {
-            MAIN: "dev-media",
-        },
-        LIBS: {
-            MAIN: "dev-libs",
-        },
-        SERVER: "server", // 服务
+        FONT: "dev-font",
+        MEDIA: "dev-media",
+        LIBS: "dev-libs",
         BROWSER_SYNC: "browser-sync", // 浏览器同步
         WATCH: "watch", // 监听
     },
@@ -106,10 +107,15 @@ const TASK = {
         },
     },
 };
+
 const SERVER = {
-    // PROXY: "http://localhost:3000", // 这块的端口号其实是对应 node 服务里启动的端口号
-    PORT: 3006, // 这个端口号是 browser-sync 插件代理的端口号
+    baseDir: "dist/",
+    port: 9527,
+    directory: true,
+    Proxy: "http://localhost:3000",
+    watchDir: ["src/*.*", "src/**/*.*"],
 };
+
 const BASE64_CONFIG = {
     // gulp-base64 配置文件
     DEV: {
@@ -143,8 +149,6 @@ module.exports = {
     PATH_CONFIG,
     TASK,
     SERVER,
-    USER_CONFIG,
-    // AUTO_PREFIXER_CONFIG,
+    USE_CONFIG,
     BASE64_CONFIG,
-    // MODIFY_CSS_URLS_CONFIG,
 };

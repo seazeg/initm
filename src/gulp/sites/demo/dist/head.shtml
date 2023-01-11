@@ -1,0 +1,90 @@
+<script>
+    (function (doc, win) {
+        var docEl = doc.documentElement,
+            resizeEvt =
+                "orientationchange" in window ? "orientationchange" : "resize",
+            recalc = function () {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                if (clientWidth <= 750) {
+                    docEl.style.cssText =
+                        "font-size:" +
+                        100 * (clientWidth / 750) +
+                        "px !important";
+                } else if (clientWidth <= 1200 && clientWidth > 750) {
+                    docEl.style.cssText =
+                        "font-size:" +
+                        100 * (clientWidth / 1200) +
+                        "px !important";
+                } else {
+                    docEl.style.cssText =
+                        "font-size:" +
+                        100 * (clientWidth / 1680) +
+                        "px !important";
+                    if (100 * (clientWidth / 1680) >= 100) {
+                        docEl.style.cssText =
+                            "font-size:" + 100 + "px !important";
+                    }
+                }
+            };
+        win.onresize = function () {
+            recalc();
+        };
+        win.onload = function () {
+            recalc();
+        };
+    })(document, window);
+</script>
+<link rel="stylesheet" href="./images/hopefont.css" />
+<link rel="stylesheet" href="./images/hopeui.min.css" />
+<link rel="stylesheet" href="./images/common.css" />
+
+<!--[if IE 8]>
+    <link rel="stylesheet" href="./images/common_ie8.css" />
+<![endif]-->
+
+<script type="text/javascript">
+    /*
+        ===站点配置===
+        各字段含义：去看项目中README.md
+    */
+    var siteConfig = {
+        siteId: "",
+        userUrl: "//tuser.haier.com",
+        headUrl: "//test.haier.com",
+        apiUrl: "//test.haier.com",
+        cHaierUrl: "https://testc.haier.com",
+        imgUrl: "//test.haier.com",
+        featureID: "",
+        loginUrl: "//tuser.haier.com/cn/login?regFrom=haier2&returnUrl=",
+        registerUrl: "//tuser.haier.com/cn/register?regFrom=haier2&returnUrl=",
+        usercenterUrl: "//tuser.haier.com",
+        logOutUrl: "//tuser.haier.com/ids/cn/haier_logout.jsp?returnUrl=",
+        mpid: "",
+        videoUrl: "//test.haier.com",
+        downloadUrl: "//test.haier.com",
+        continentID: "",
+        baiduMapApi: "//api.map.baidu.com/api?v=2.0&ak=cq7BvjRLW91mNs77xyzhautsANneK6uF&s=1",
+        baiduMapAK: "",
+        siteSmartSearchId: "",
+        productCode: "",
+        serviceCode: "",
+        haierstoreCode: "",
+        appDownloadCode: "",
+        specificationDownloadCode: "",
+        driveDownloadCode: "",
+        newsCode: "",
+        videosCode: "",
+        guanggaowei: "{}",
+        driverchnlid: "",
+    };
+
+    var isShedderShow =
+        window.location.href.indexOf("shedderShow") > 0 ||
+        window.location.href.indexOf("/preview/") > 0
+            ? true
+            : false;
+    if (isShedderShow) {
+        siteConfig.apiUrl = "";
+    }
+</script>
