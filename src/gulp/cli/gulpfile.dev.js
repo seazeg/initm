@@ -2,21 +2,15 @@ const clean = require("gulp-clean");
 const less = require("gulp-less");
 const babel = require("gulp-babel");
 const plumber = require("gulp-plumber");
-const processhtml = require("gulp-processhtml");
 const template = require("gulp-template");
 const gulpif = require("gulp-if");
-const marked = require("gulp-marked");
 const rename = require("gulp-rename");
 const uglify = require("gulp-uglify");
 const cssm = require("gulp-clean-css");
 const imagemin = require("gulp-imagemin");
 const pngquant = require("imagemin-pngquant");
-const minimist = require("minimist");
-const shell = require("gulp-shell");
-const moment = require("moment");
 const chalk = require("chalk");
-const htmlreplace = require("gulp-html-replace");
-const replace = require("gulp-replace");
+const marked = require("gulp-marked");
 const autoPrefixer = require("gulp-autoprefixer");
 const cache = require("gulp-cache");
 
@@ -56,13 +50,13 @@ module.exports = (gulp, userConfig, browserSync) => {
                 plumber({
                     errorHandler: function (e) {
                         console.log(
-                            chalk.blue(
+                            chalk.red(
                                 "----------------es6语法有误，导致babel转换失败start-----------"
                             )
                         );
                         console.log(marked(e.message));
                         console.log(
-                            chalk.blue(
+                            chalk.red(
                                 "----------------es6语法有误，导致babel转换失败end-----------"
                             )
                         );
@@ -90,7 +84,7 @@ module.exports = (gulp, userConfig, browserSync) => {
 
     /* html 任务*/
     gulp.task(TASK.DEV.HTML, () => {
-        return src(PATH_CONFIG.entry.html)
+        return src(PATH_CONFIG.entry.html.dev)
             .pipe(plumber())
             .pipe(
                 template(userConfig.dev, {
@@ -216,7 +210,7 @@ module.exports = (gulp, userConfig, browserSync) => {
         });
 
         // 监听模板文件【html】
-        watch(PATH_CONFIG.entry.html, parallel(TASK.DEV.HTML)).on(
+        watch(PATH_CONFIG.entry.html.dev, parallel(TASK.DEV.HTML)).on(
             "change",
             reload
         );

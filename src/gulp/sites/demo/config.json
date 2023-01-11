@@ -1,8 +1,4 @@
 {
-    "serverPort": "3009",
-    "proxyPort": "代理端口",
-    "proxyTarget": "代理地址",
-    "proxySwitch": false,
     "dev": {
         "env": "本地调试",
         "ROOT_PATH": "${ROOT_PATH}",
