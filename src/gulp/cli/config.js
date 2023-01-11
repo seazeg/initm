@@ -1,7 +1,7 @@
 /*
  * @Author       : Evan.G
  * @Date         : 2023-01-10 16:50:23
- * @LastEditTime : 2023-01-11 11:30:45
+ * @LastEditTime : 2023-01-11 11:45:29
  * @Description  :
  * @FilePath     : /seazeg.github.io/Users/geng/Project/Person/initm/src/gulp/cli/config.js
  */
@@ -66,7 +66,6 @@ const TASK = {
         SCRIPT: {
             MAIN: "dev-js",
             CONCAT: "dev-js-concat", // JS合并
-            BABAL: "dev-js-babal",
         },
         IMAGE: {
             MAIN: "dev-image",
