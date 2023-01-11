@@ -13,23 +13,14 @@ const imagemin = require("gulp-imagemin");
 const pngquant = require("imagemin-pngquant");
 const minimist = require("minimist");
 const shell = require("gulp-shell");
-const browserSync = require("browser-sync").create();
 const moment = require("moment");
 const chalk = require("chalk");
 const htmlreplace = require("gulp-html-replace");
-const concat = require("gulp-concat");
 const replace = require("gulp-replace");
-const connect = require("gulp-connect");
 const autoPrefixer = require("gulp-autoprefixer");
 const cache = require("gulp-cache");
 
-const {
-    PATH_CONFIG,
-    TASK,
-    SERVER,
-    USE_CONFIG,
-    BASE64_CONFIG,
-} = require("./config");
+const { PATH_CONFIG, TASK, SERVER, USE_CONFIG } = require("./config");
 
 module.exports = (gulp, userConfig, browserSync) => {
     const { src, dest, series, parallel, watch } = gulp;
@@ -181,44 +172,46 @@ module.exports = (gulp, userConfig, browserSync) => {
         browserSync.init({
             notify: false, // 关闭页面通知
             port: SERVER.port,
-            proxy: SERVER.proxy,
             server: {
                 baseDir: SERVER.baseDir,
                 directory: SERVER.directory,
-                middleware: function (req, res, next) {
-                    const fs = require("fs");
-                    const ssi = require("ssi");
-                    let pathname = require("url").parse(req.url).pathname;
-                    let filename = require("path").join(
-                        SERVER.baseDir,
-                        pathname.substr(-1) === "/"
-                            ? pathname + "index.shtml"
-                            : pathname
-                    );
-
-                    let parser = new ssi(
-                        SERVER.baseDir,
-                        SERVER.baseDir,
-                        "/**/*.shtml",
-                        true
-                    );
-
-                    if (
-                        filename.indexOf(".shtml") > -1 &&
-                        fs.existsSync(filename)
-                    ) {
-                        res.end(
-                            parser.parse(
-                                filename,
-                                fs.readFileSync(filename, {
-                                    encoding: "utf8",
-                                })
-                            ).contents
+                middleware: [
+                    (req, res, next) => {
+                        const fs = require("fs");
+                        const ssi = require("ssi");
+                        let pathname = require("url").parse(req.url).pathname;
+                        let filename = require("path").join(
+                            SERVER.baseDir,
+                            pathname.substr(-1) === "/"
+                                ? pathname + "index.shtml"
+                                : pathname
                         );
-                    } else {
-                        next();
-                    }
-                },
+
+                        let parser = new ssi(
+                            SERVER.baseDir,
+                            SERVER.baseDir,
+                            "/**/*.shtml",
+                            true
+                        );
+
+                        if (
+                            filename.indexOf(".shtml") > -1 &&
+                            fs.existsSync(filename)
+                        ) {
+                            res.end(
+                                parser.parse(
+                                    filename,
+                                    fs.readFileSync(filename, {
+                                        encoding: "utf8",
+                                    })
+                                ).contents
+                            );
+                        } else {
+                            next();
+                        }
+                    },
+                    ...SERVER.proxy,
+                ],
             },
         });
 

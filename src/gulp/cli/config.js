@@ -1,10 +1,11 @@
 /*
  * @Author       : Evan.G
  * @Date         : 2023-01-10 16:50:23
- * @LastEditTime : 2023-01-11 11:45:29
+ * @LastEditTime : 2023-01-11 16:27:42
  * @Description  :
  * @FilePath     : /seazeg.github.io/Users/geng/Project/Person/initm/src/gulp/cli/config.js
  */
+const { createProxyMiddleware } = require("http-proxy-middleware");
 
 const PATH_CONFIG = {
     entry: {
@@ -52,6 +53,7 @@ const USE_CONFIG = {
     useEslint: false,
     useWebpack: false,
     useBabel: true,
+    useProxy: false,
 };
 
 const TASK = {
@@ -75,7 +77,7 @@ const TASK = {
         MEDIA: "dev-media",
         LIBS: "dev-libs",
         BROWSER_SYNC: "browser-sync", // 浏览器同步
-        WATCH: "watch", // 监听
+        PROXY: "PROXY", // 监听
     },
     BUILD: {
         MAIN: "build",
@@ -111,8 +113,15 @@ const SERVER = {
     baseDir: "dist/",
     port: 9527,
     directory: true,
-    Proxy: "http://localhost:3000",
     watchDir: ["src/*.*", "src/**/*.*"],
+    proxy: USE_CONFIG.useProxy
+        ? [
+              createProxyMiddleware("/api", {
+                  target: "http://www.baidu.com", // 目标服务器地址
+                  changeOrigin: true, // 允许跨域
+              }),
+          ]
+        : [],
 };
 
 const BASE64_CONFIG = {
