@@ -33,7 +33,6 @@ const {
 
 module.exports = (gulp, userConfig, browserSync) => {
     const { src, dest, series, parallel, watch } = gulp;
-    const reload = browserSync.reload;
 
     /* clean 文件清除任务 */
     gulp.task(TASK.DEV.CLEAN, () => {
@@ -230,8 +229,8 @@ module.exports = (gulp, userConfig, browserSync) => {
             let fileName = pathArray[pathArray.length - 1];
             let type = fileName.split(".")[1];
             let nowDate = moment().locale("zh-cn").format("HH:mm:ss");
-            if (type == "html" || type == "shtml") {
-                staticFileComp();
+            if (type.includes("htm")) {
+                TASK.DEV.HTML();
                 browserSync.reload();
                 console.log(
                     chalk.yellow(`[${nowDate}]更新文件 ${path}到dist目录`)
